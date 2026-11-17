@@ -1,8 +1,26 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "defines.h"
 
-void afficheMenu(int c){
+
+void afficheMenu(){
+
+    printf("1. Ajouter un joueur\n");
+    printf("2. Supprimer un joueur\n");
+    printf("3. Afficher les joueurs\n");
+    printf("4. Rechercher un joueur\n");
+    printf("5. Organiser un match\n");
+    printf("6. Enregistrer un résultat\n");
+    printf("7. Afficher le classement\n");
+    printf("8. Afficher les statistiques\n");
+    printf("9. Sauvegarder les données\n");
+    printf("10. Charger les données\n");
+    printf("11. Simuler un tournoi\n");
+    printf("0. Quitter\n");
+    printf(" \n");
+}
+
+void choixMenu(int c){
 
     switch (c)
     {
@@ -23,11 +41,18 @@ void afficheMenu(int c){
 
 int main(){
 
-    int c=10;
-    while(c!=0){
-        scanf("%d",&c);
-        afficheMenu(c);
+    int c=-1;
+    while(c!=0){  
+        printf("\n");
+        afficheMenu();
+        printf("Votre choix : ");
+        if (scanf("%d", &c) != 1) {
+            printf("Saisie invalide !\n");
+            return 1;
+        }
+        choixMenu(c);
     }
     
+    return 0;
     
 }
