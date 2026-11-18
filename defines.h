@@ -1,5 +1,5 @@
-#ifndef __DEFINES_H__
-#define __DEFINES_H__
+#ifndef DEFINES_H
+#define DEFINES_H
 
 typedef struct joueur
 {

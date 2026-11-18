@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include "defines.h"
 
-void ajouteJoueur(void);
-
+void ajouteJoueur(joueur_t joueurs[], int *nbJoueurs);
 
 void afficheMenu(){
 
@@ -23,12 +22,12 @@ void afficheMenu(){
     printf(" \n");
 }
 
-void choixMenu(int c){
+void choixMenu(int c, joueur_t joueurs[], int *nbJoueurs){
 
     switch (c)
     {
     case 0 : printf("vous avez quitter\n"); break;
-    case 1 : ajouteJoueur(); break;
+    case 1 : ajouteJoueur(joueurs, nbJoueurs); break;
     case 2 : printf("OK\n"); break;
     case 3 : printf("OK\n"); break;
     case 4 : printf("OK\n"); break;
@@ -42,7 +41,7 @@ void choixMenu(int c){
 
 }
 
-void ajouteJoueur(){
+void ajouteJoueur(joueur_t joueurs[], int *nbJoueurs){
     joueur_t new_joueur;
     char n[51];
     char p[51]; 
@@ -66,9 +65,14 @@ void ajouteJoueur(){
            new_joueur.prenom,
            new_joueur.age);
 
+    joueurs[*nbJoueurs] = new_joueur;
+    (*nbJoueurs)++;
+
 }
 
 int main(){
+    int nbJoueurs = 0;
+    joueur_t joueurs[100];
 
     int c=-1;
     while(c!=0){  
@@ -79,7 +83,7 @@ int main(){
             printf("Saisie invalide !\n");
             return 1;
         }
-        choixMenu(c);
+        choixMenu(c,joueurs,&nbJoueurs);
     }
     
     return 0;
