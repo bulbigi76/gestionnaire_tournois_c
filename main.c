@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include "defines.h"
+
+void ajouteJoueur(void);
 
 
 void afficheMenu(){
@@ -25,7 +28,7 @@ void choixMenu(int c){
     switch (c)
     {
     case 0 : printf("vous avez quitter\n"); break;
-    case 1 : printf("OK\n"); break;
+    case 1 : ajouteJoueur(); break;
     case 2 : printf("OK\n"); break;
     case 3 : printf("OK\n"); break;
     case 4 : printf("OK\n"); break;
@@ -36,6 +39,32 @@ void choixMenu(int c){
     case 9 : printf("OK\n"); break;
     default: printf("Commande inconnue\n"); return;
     }
+
+}
+
+void ajouteJoueur(){
+    joueur_t new_joueur;
+    char n[51];
+    char p[51]; 
+    int a;
+    printf("Saisir le nom : ");
+    scanf("%50s", n);
+
+    printf("Saisir le prénom : ");
+    scanf("%50s", p);
+
+    printf("Saisir l'âge : ");
+    scanf("%d", &a);
+
+    strcpy(new_joueur.nom, n);
+    strcpy(new_joueur.prenom, p);
+    new_joueur.age = a;
+
+
+    printf("Nom : %s, prénom : %s, âge : %d\n",
+           new_joueur.nom,
+           new_joueur.prenom,
+           new_joueur.age);
 
 }
 
