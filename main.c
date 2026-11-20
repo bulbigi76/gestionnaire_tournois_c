@@ -4,9 +4,10 @@
 #include "defines.h"
 
 void ajouteJoueur(joueur_t joueurs[], int *nbJoueurs);
+void afficheJoueurs(joueur_t joueurs[], int nbJoueurs);
 
 void afficheMenu(){
-
+    /*fonction qui permet d'afficher le menu des commandes disponibles*/
     printf("1. Ajouter un joueur\n");
     printf("2. Supprimer un joueur\n");
     printf("3. Afficher les joueurs\n");
@@ -23,13 +24,18 @@ void afficheMenu(){
 }
 
 void choixMenu(int c, joueur_t joueurs[], int *nbJoueurs){
-
+    /*Fonction qui permet de faire le choix entre les différentes options 
+      Entrée : c : int 
+               joueurs[] : joueur_t
+               nbJoueurs : int *
+    */
+    
     switch (c)
     {
     case 0 : printf("vous avez quitter\n"); break;
     case 1 : ajouteJoueur(joueurs, nbJoueurs); break;
     case 2 : printf("OK\n"); break;
-    case 3 : printf("OK\n"); break;
+    case 3 : afficheJoueurs(joueurs,*nbJoueurs); break;
     case 4 : printf("OK\n"); break;
     case 5 : printf("OK\n"); break;
     case 6 : printf("OK\n"); break;
@@ -42,6 +48,11 @@ void choixMenu(int c, joueur_t joueurs[], int *nbJoueurs){
 }
 
 void ajouteJoueur(joueur_t joueurs[], int *nbJoueurs){
+    /*Fonction qui permet d'ajouter un joueur à la base de données
+      Entrée : 
+               joueurs[] : joueur_t
+               nbJoueurs : int *
+    */
     joueur_t new_joueur;
     char n[51];
     char p[51]; 
@@ -68,6 +79,20 @@ void ajouteJoueur(joueur_t joueurs[], int *nbJoueurs){
     joueurs[*nbJoueurs] = new_joueur;
     (*nbJoueurs)++;
 
+}
+
+void afficheJoueurs(joueur_t joueurs[], int nbJoueurs){
+    /*Fonction qui permet d'afficher la liste de joueurs
+      Entrée : 
+               joueurs[] : joueur_t
+               nbJoueurs : int
+    */
+    for(int i =0 ; i<nbJoueurs ; ++i){
+        printf("Nom : %s, prénom : %s, âge : %d\n",
+          joueurs[i].nom,
+           joueurs[i].prenom,
+           joueurs[i].age);
+    }
 }
 
 int main(){
