@@ -5,7 +5,7 @@
 
 void ajouteJoueur(joueur_t joueurs[], int *nbJoueurs);
 void afficheJoueurs(joueur_t joueurs[], int nbJoueurs);
-int rechercheJoueur(joueur_t joueurs[], int nbJoueurs);
+int rechercheJoueur(joueur_t joueurs[], int nbJoueurs,char nom[], char prenom[]);
 
 void afficheMenu(){
     /*fonction qui permet d'afficher le menu des commandes disponibles*/
@@ -24,7 +24,7 @@ void afficheMenu(){
     printf(" \n");
 }
 
-void choixMenu(int c, joueur_t joueurs[], int *nbJoueurs){
+void choixMenu(int c, joueur_t joueurs[], int *nbJoueurs,char nom[], char prenom[]){
     /*Fonction qui permet de faire le choix entre les différentes options 
       Entrée : c : int 
                joueurs[] : joueur_t
@@ -37,7 +37,11 @@ void choixMenu(int c, joueur_t joueurs[], int *nbJoueurs){
     case 1 : ajouteJoueur(joueurs, nbJoueurs); break;
     case 2 : printf("OK\n"); break;
     case 3 : afficheJoueurs(joueurs,*nbJoueurs); break;
-    case 4 : rechercheJoueur(joueurs,*nbJoueurs); break;
+    case 4 : printf("Saisir le nom : ");
+             scanf("%50s", nom);
+             printf("Saisir le prénom : ");
+             scanf("%50s", prenom);
+             rechercheJoueur(joueurs,*nbJoueurs,nom,prenom); break;
     case 5 : printf("OK\n"); break;
     case 6 : printf("OK\n"); break;
     case 7 : printf("OK\n"); break;
@@ -84,16 +88,18 @@ void ajouteJoueur(joueur_t joueurs[], int *nbJoueurs){
 
 }
 
-int rechercheJoueur(joueur_t joueurs[], int nbJoueurs){
-    char nom[51];
-    char prenom[51]; 
-    printf("Saisir le nom : ");
-    scanf("%50s", nom);
-    printf("Saisir le prénom : ");
-    scanf("%50s", prenom);
-
+int rechercheJoueur(joueur_t joueurs[], int nbJoueurs,char nom[], char prenom[]){
+    /*Fonction qui permet de rechecher existe ou non dans la base de données
+      Entrée : 
+               joueurs[] : joueur_t
+               nbJoueurs : int *
+               nom[] : char 
+               prenom[] : char
+      Sortie : 
+               0 ou 1 : int
+    */
     for(int i = 0; i<nbJoueurs ; ++i){
-        if(joueurs[i].nom == nom && joueurs[i].prenom == prenom){
+        if((strcmp(joueurs[i].nom, nom)==0) && (strcmp(joueurs[i].prenom, prenom)==0)){
             printf("Nom : %s, prénom : %s, âge : %d\n",
                 joueurs[i].nom,
                 joueurs[i].prenom,
@@ -101,7 +107,14 @@ int rechercheJoueur(joueur_t joueurs[], int nbJoueurs){
             return 1;
         }
     }
+    printf("pas de joueurs sous cette identité");
     return 0;
+}
+
+void supprimeJoueur(joueur_t joueurs[], int nbJoueurs){
+    afficheJoueurs(joueurs,  nbJoueurs);
+    printf("Qui voulez-vous supprimez ?");
+
 }
 
 void afficheJoueurs(joueur_t joueurs[], int nbJoueurs){
@@ -121,6 +134,8 @@ void afficheJoueurs(joueur_t joueurs[], int nbJoueurs){
 int main(){
     int nbJoueurs = 0;
     joueur_t joueurs[100];
+    char nom[51];
+    char prenom[51];
 
     int c=-1;
     while(c!=0){  
@@ -131,7 +146,7 @@ int main(){
             printf("Saisie invalide !\n");
             return 1;
         }
-        choixMenu(c,joueurs,&nbJoueurs);
+        choixMenu(c,joueurs,&nbJoueurs,nom,prenom);
     }
     
     return 0;
