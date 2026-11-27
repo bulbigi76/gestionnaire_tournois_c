@@ -6,6 +6,7 @@
 void ajouteJoueur(joueur_t joueurs[], int *nbJoueurs);
 void afficheJoueurs(joueur_t joueurs[], int nbJoueurs);
 int rechercheJoueur(joueur_t joueurs[], int nbJoueurs,char nom[], char prenom[]);
+void supprimeJoueur(joueur_t joueurs[], int *nbJoueurs);
 
 void afficheMenu(){
     /*fonction qui permet d'afficher le menu des commandes disponibles*/
@@ -30,12 +31,11 @@ void choixMenu(int c, joueur_t joueurs[], int *nbJoueurs,char nom[], char prenom
                joueurs[] : joueur_t
                nbJoueurs : int *
     */
-    
     switch (c)
     {
     case 0 : printf("vous avez quitter\n"); break;
     case 1 : ajouteJoueur(joueurs, nbJoueurs); break;
-    case 2 : printf("OK\n"); break;
+    case 2 : supprimeJoueur(joueurs,nbJoueurs); break;
     case 3 : afficheJoueurs(joueurs,*nbJoueurs); break;
     case 4 : printf("Saisir le nom : ");
              scanf("%50s", nom);
@@ -96,7 +96,7 @@ int rechercheJoueur(joueur_t joueurs[], int nbJoueurs,char nom[], char prenom[])
                nom[] : char 
                prenom[] : char
       Sortie : 
-               0 ou 1 : int
+               0 si pas présent ou l'indice : int
     */
     for(int i = 0; i<nbJoueurs ; ++i){
         if((strcmp(joueurs[i].nom, nom)==0) && (strcmp(joueurs[i].prenom, prenom)==0)){
@@ -104,18 +104,13 @@ int rechercheJoueur(joueur_t joueurs[], int nbJoueurs,char nom[], char prenom[])
                 joueurs[i].nom,
                 joueurs[i].prenom,
                 joueurs[i].age);
-            return 1;
+            return i;
         }
     }
     printf("pas de joueurs sous cette identité");
     return 0;
 }
 
-void supprimeJoueur(joueur_t joueurs[], int nbJoueurs){
-    afficheJoueurs(joueurs,  nbJoueurs);
-    printf("Qui voulez-vous supprimez ?");
-
-}
 
 void afficheJoueurs(joueur_t joueurs[], int nbJoueurs){
     /*Fonction qui permet d'afficher la liste de joueurs
@@ -129,6 +124,27 @@ void afficheJoueurs(joueur_t joueurs[], int nbJoueurs){
            joueurs[i].prenom,
            joueurs[i].age);
     }
+}
+
+void supprimeJoueur(joueur_t joueurs[], int *nbJoueurs){
+    afficheJoueurs(joueurs,  *nbJoueurs);
+    printf("Qui voulez-vous supprimez ?\n");
+    char nom[51];
+    char prenom[51];
+    printf("Saisir le nom : ");
+             scanf("%50s", nom);
+             printf("Saisir le prénom : ");
+             scanf("%50s", prenom);
+    int indice;
+    if((indice = rechercheJoueur(joueurs,*nbJoueurs,nom,prenom))!=0){
+        for(int i = indice ; i<*nbJoueurs-1 ; ++i){
+            joueur_t temp = joueurs[i+1];
+            joueurs[i] = temp;
+        }
+        (*nbJoueurs)--;
+    }
+
+
 }
 
 int main(){
